@@ -177,11 +177,17 @@ var DomOutline = function (options) {
 
 var myExampleClickHandler = function (element) { 
     console.log('Clicked element:', element); 
-    var myWindow = window.open("", "MsgWindow", "width=200,height=100");
-    // myWindow.document.write("<div> test </div>");
-    $("myWindow").html(element)
+    openPopup2(element);
 }
 var myDomOutline = DomOutline({ onClick: myExampleClickHandler, filter: 'div' });
 
 // Start outline:
 myDomOutline.start();
+
+function openPopup2(element) {
+  const popup = document.implementation.createHTMLDocument('popup2');
+  const popupWindow = window.open('', '_blank', 'width=400,height=300');
+  var $elem = $(popupWindow.document.body)
+  var $selected = $(element);
+  $elem.append($selected.clone());
+}
