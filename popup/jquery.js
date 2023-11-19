@@ -1,66 +1,16 @@
-function makePopup() {
-  const popup = document.implementation.createHTMLDocument('popup');
-  const div = popup.createElement('div');
-  div.setAttribute('id', 'end');
-  popup.body.appendChild(div);
-  return popup;
-}
-
-function addHighlightedText(doc) {
-  const end = doc.getElementById('end');
-  const highlightedText = window.getSelection().toString();
-  const newDiv = doc.createElement('div');
-  const newContent = doc.createTextNode(highlightedText);
-  newDiv.appendChild(newContent);
-  doc.body.insertBefore(newDiv, end);
-}
-
-function openPopup(element = undefined) {
-  let popupWindow;
-  if (element) {
-    popupWindow = window.open('', '_blank', 'width=400,height=300');
-    var $elem = $(popupWindow.document.body);
-    var $selected = $(element);
-    $elem.append($selected.clone());
-  } else {
-    const popup = makePopup();
-    addHighlightedText(popup);
-    popupWindow = window.open('', '_blank', 'width=400,height=300');
-    popupWindow.document.write(popup.documentElement.outerHTML);
-  }
-  let inputs = popupWindow.document.querySelectorAll('input');
-  addCheckFunctionality(inputs);
-}
-
-function addTextFunctionality(inputs) {
-  inputs.forEach((input) => {
-    input.addEventListener('input', (e) => handleTextChange(e, input));
-  });
-}
-
-function handleTextChange(e, input) {
-  let element = document.getElementById(input.id);
-  value = e.target.value;
-  element.setAttribute('value', value);
-}
-
-function addCheckFunctionality(inputs) {
-  inputs.forEach((input) => {
-    input.addEventListener('click', (e) => handleCheckChange(e, input));
-  });
-}
-
-function handleCheckChange(e, input) {
-  let element = document.getElementById(input.id);
-  element.checked = true;
-}
-
-// DOM OUTLINE LOGIC
-
-function openDOMOutline() {
-  myDomOutline.start();
-}
-
+/**
+ * Firebug/Web Inspector Outline Implementation using jQuery
+ * Tested to work in Chrome, FF, Safari. Buggy in IE ;(
+ * Andrew Childs <ac@glomerate.com>
+ *
+ * Example Setup:
+ * var myClickHandler = function (element) { console.log('Clicked element:', element); }
+ * var myDomOutline = DomOutline({ onClick: myClickHandler, filter: '.debug' });
+ *
+ * Public API:
+ * myDomOutline.start();
+ * myDomOutline.stop();
+ */
 var DomOutline = function (options) {
   options = options || {};
 
@@ -273,10 +223,20 @@ var DomOutline = function (options) {
 };
 
 var DOMClick = function (element) {
-  openPopup(element);
+  console.log('Clicked element:', element);
+  openPopup2(element);
 };
-
 var myDomOutline = DomOutline({
   onClick: DOMClick,
   filter: 'div',
 });
+
+// Start outline:
+// myDomOutline.start();
+
+function openPopup2(element) {
+  const popupWindow = window.open('', '_blank', 'width=400,height=300');
+  var $elem = $(popupWindow.document.body);
+  var $selected = $(element);
+  $elem.append($selected.clone());
+}
