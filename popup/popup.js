@@ -8,11 +8,25 @@ function makePopup() {
 
 function addHighlightedText(doc) {
   const end = doc.getElementById('end');
-  const highlightedText = window.getSelection().toString();
-  const newDiv = doc.createElement('div');
-  const newContent = doc.createTextNode(highlightedText);
-  newDiv.appendChild(newContent);
-  doc.body.insertBefore(newDiv, end);
+  const highlightedText = window.getSelection();
+
+  if (highlightedText.rangeCount > 0) {
+    const range = highlightedText.getRangeAt(0);
+    const selectedText = highlightedText.toString();
+
+    const tempDiv = doc.createElement('div');
+    tempDiv.appendChild(range.cloneContents());
+
+    let mostRecentTag = range.commonAncestorContainer;
+    while(mostRecentTag.nodeType !== Node.ELEMENT_NODE) {
+      mostRecentTag = mostRecentTag.parentNode;
+    }
+
+    const actualDiv = doc.createElement(mostRecentTag.tagName.toLowerCase());
+    actualDiv.innerHTML = tempDiv.innerHTML;
+    
+    doc.body.insertBefore(actualDiv, end);
+  }
 }
 
 function openPopup(element = undefined) {
