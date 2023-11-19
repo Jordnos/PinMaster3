@@ -3,11 +3,27 @@
 let buttons = document.querySelectorAll('.custom-button');
 
 buttons.forEach((button) => {
-  console.log(button);
   button.addEventListener('click', (e) => handleButtonClick(e));
 })
 
 function handleButtonClick(e) {
   const buttonId = e.target.id;
-  console.log(`Button with ID "${buttonId}" clicked!`);
+
+  switch(buttonId) {
+    case 'highlighted_text_button':
+      // code block
+      break;
+    case 'input_button':
+      // code block
+      break;
+    case 'single_select_button':
+      // code block
+      break;
+    case 'multi_select_button':
+      // code block
+      break;
+    default:
+      // code block
+  }
+  // console.log(`Button with ID "${buttonId}" clicked!`);
 }
