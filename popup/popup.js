@@ -54,7 +54,7 @@ function openPopup(element = undefined) {
     popupWindow.document.write(popup.documentElement.outerHTML);
   }
   let inputs = popupWindow.document.querySelectorAll('input');
-  addCheckFunctionality(inputs);
+  addFunctionality(inputs);
 }
 
 function addFunctionality(inputs) {
@@ -64,24 +64,20 @@ function addFunctionality(inputs) {
     if (input.type === 'text') {
       input.addEventListener('input', (e) => handleTextChange(e, input));
     }else {
-      input.addEventListener('check', (e) => handleChecktChange(e, input)); 
+      input.addEventListener('click', (e) => handleCheckChange(e, input));
     }
   });
 }
 
 function handleTextChange(e, input) {
+  console.log("text");
   let element = document.getElementById(input.id);
   value = e.target.value;
   element.setAttribute('value', value);
 }
 
-function addCheckFunctionality(inputs) {
-  inputs.forEach((input) => {
-    input.addEventListener('click', (e) => handleCheckChange(e, input));
-  });
-}
-
 function handleCheckChange(e, input) {
+  console.log("check");
   let element = document.getElementById(input.id);
   element.checked = true;
 }
