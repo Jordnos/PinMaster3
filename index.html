@@ -9,6 +9,36 @@
 </head>
 <body>
 
+  <H1>Analyze the sorting algorithm below and answer the following questions:</H1>
+  <pre>
+    <code>
+      using namespace std;
+      
+      int partition(int arr[],int low,int high)
+      {
+        //choose the pivot
+        
+        int pivot=arr[high];
+        //Index of smaller element and Indicate
+        //the right position of pivot found so far
+        int i=(low-1);
+        
+        for(int j=low;j&lt=high;j++)
+        {
+          //If current element is smaller than the pivot
+          if(arr[j]&ltpivot)
+          {
+            //Increment index of smaller element
+            i++;
+            swap(arr[i],arr[j]);
+          }
+        }
+        swap(arr[i+1],arr[high]);
+        return (i+1);
+      }        
+    </code>
+  </pre>
+
     
     <div>
         <h1>Question 1: Select the correct answer</h1>
