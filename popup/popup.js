@@ -46,7 +46,7 @@ function openPopup(element = undefined) {
     popupWindow = window.open('', '_blank', 'width=400,height=300');
     var $elem = $(popupWindow.document.body);
     var $selected = $(element);
-    $elem.append($selected.clone());
+    $elem.append($selected.clone()); 
   } else {
     const popup = makePopup();
     addHighlightedText(popup);
@@ -57,9 +57,15 @@ function openPopup(element = undefined) {
   addCheckFunctionality(inputs);
 }
 
-function addTextFunctionality(inputs) {
+function addFunctionality(inputs) {
   inputs.forEach((input) => {
-    input.addEventListener('input', (e) => handleTextChange(e, input));
+    console.log("SLDJKFSDF");
+    console.log(input.type);
+    if (input.type === 'text') {
+      input.addEventListener('input', (e) => handleTextChange(e, input));
+    }else {
+      input.addEventListener('check', (e) => handleChecktChange(e, input)); 
+    }
   });
 }
 
