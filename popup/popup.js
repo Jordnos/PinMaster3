@@ -46,7 +46,7 @@ function openPopup(element = undefined) {
     popupWindow = window.open('', '_blank', 'width=400,height=300');
     var $elem = $(popupWindow.document.body);
     var $selected = $(element);
-    $elem.append($selected.clone());
+    $elem.append($selected.clone()); 
   } else {
     const popup = makePopup();
     addHighlightedText(popup);
@@ -54,28 +54,30 @@ function openPopup(element = undefined) {
     popupWindow.document.write(popup.documentElement.outerHTML);
   }
   let inputs = popupWindow.document.querySelectorAll('input');
-  addCheckFunctionality(inputs);
+  addFunctionality(inputs);
 }
 
-function addTextFunctionality(inputs) {
+function addFunctionality(inputs) {
   inputs.forEach((input) => {
-    input.addEventListener('input', (e) => handleTextChange(e, input));
+    console.log("SLDJKFSDF");
+    console.log(input.type);
+    if (input.type === 'text') {
+      input.addEventListener('input', (e) => handleTextChange(e, input));
+    }else {
+      input.addEventListener('click', (e) => handleCheckChange(e, input)); 
+    }
   });
 }
 
 function handleTextChange(e, input) {
+  console.log("text");
   let element = document.getElementById(input.id);
   value = e.target.value;
   element.setAttribute('value', value);
 }
 
-function addCheckFunctionality(inputs) {
-  inputs.forEach((input) => {
-    input.addEventListener('click', (e) => handleCheckChange(e, input));
-  });
-}
-
 function handleCheckChange(e, input) {
+  console.log("check");
   let element = document.getElementById(input.id);
   element.checked = true;
 }
