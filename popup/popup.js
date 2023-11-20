@@ -1,3 +1,14 @@
+console.log("running");
+
+chrome.runtime.onMessage.addListener( (request) => {
+  console.log('received', request);
+  if (request === "highlighted_text_button") {
+    openPopup();
+  } else {
+    openDOMOutline();
+  }
+})
+
 function makePopup() {
   const popup = document.implementation.createHTMLDocument('popup');
   const div = popup.createElement('div');

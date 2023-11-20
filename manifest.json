@@ -5,5 +5,19 @@
   "version": "1.0",
   "action": {
     "default_popup": "options/options.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "js": ["popup/popup.js", "jquery-3.7.1.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting"
+  ]
 }
