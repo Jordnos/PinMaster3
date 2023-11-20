@@ -64,7 +64,7 @@ function addFunctionality(inputs) {
     if (input.type === 'text') {
       input.addEventListener('input', (e) => handleTextChange(e, input));
     }else {
-      input.addEventListener('click', (e) => handleCheckChange(e, input)); 
+      input.addEventListener('click', (e) => handleCheckChange(e, input));
     }
   });
 }
